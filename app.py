@@ -1,13 +1,13 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse
-import httpx
+import httpx, os
 import json, uuid, requests
 from bs4 import BeautifulSoup
 
 app = FastAPI()
 
-OLLAMA_URL = "http://localhost:11434/api/chat"
-MODEL_NAME = "mistral"
+OLLAMA_URL   = os.getenv("OLLAMA_UR", "http://localhost:11434/api/chat")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "mistral")
 
 # Fetch the page content in Python
 url = "https://www.dm.unipi.it/cluster-di-calcolo-scientifico/"
@@ -56,7 +56,7 @@ async def chat_stream(request: Request):
             assistant_message = ""
 
             async with client.stream("POST", OLLAMA_URL, json={
-                "model": MODEL_NAME, "messages": chat_history, 
+                "model": OLLAMA_MODEL, "messages": chat_history, 
                 "repeat_penalty": 1.15, 
                 "prompt": message}) as resp:
                 partial = ""
