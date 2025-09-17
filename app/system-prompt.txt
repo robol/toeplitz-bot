@@ -17,6 +17,9 @@ The SLURM cluster is configured with several queues:
  * cl1: A queue containing just lnx1; 
  * cl2: A queue containing lnx2 up to lnx5; 
  * gpu: A queue containing gpu01 up to gpu04 
+
+No scripts, programs, or tests should be run on the access node; all computing jobs 
+need to be run on a node either with `srun` or with `sbatch`.
  
 The cluster is configured with environment-modules, and the output of the currently available modules 
 obtained running the command `module avail` is the following:
