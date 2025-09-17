@@ -35,7 +35,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-md-8">
-            <h2 class="mb-3 text-center">🔧 HPC Cluster "Toeplitz" - AI Assistance</h2>
+            <h2 class="mb-5 text-center">🔧 HPC Cluster "Toeplitz" - AI Assistance</h2>
 
             <div id="chat" class="mb-3"></div>
 
@@ -76,6 +76,15 @@
         let content = "";
         chatDiv.appendChild(assistantDiv);
         input.value = "";
+
+        // Add a bootstrap spinner as waiting indicator
+        assistantDiv.innerHTML = `
+            <div class="d-flex align-items-center">
+                <div class="spinner-border ms-1" role="status" aria-hidden="true"></div>
+                Sto pensando ...
+            </div>
+        `;
+
         scrollToBottom();
 
         const response = await fetch(`/api/chat/stream`, {

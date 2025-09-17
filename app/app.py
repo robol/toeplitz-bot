@@ -4,10 +4,15 @@ import httpx, os
 import json, uuid, requests
 from bs4 import BeautifulSoup
 
-app = FastAPI()
-
-OLLAMA_URL   = os.getenv("OLLAMA_UR", "http://localhost:11434/api/chat")
+OLLAMA_URL   = os.getenv("OLLAMA_URL", "http://localhost:11434/api/chat")
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "mistral")
+
+print(" ")
+print(f"OLLAMA_URL = {OLLAMA_URL}")
+print(f"OLLAMA_MODEL = {OLLAMA_MODEL}")
+print(" ")
+
+app = FastAPI()
 
 # Fetch the page content in Python
 url = "https://www.dm.unipi.it/cluster-di-calcolo-scientifico/"

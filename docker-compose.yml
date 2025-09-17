@@ -1,0 +1,13 @@
+services:
+  ollama:
+    image: ollama/ollama
+
+  web:
+    image: robol/toeplitz-bot
+    environment:
+      - "OLLAMA_NUM_PARALLEL=4"
+      - "OLLAMA_URL=http://ollama:11434/api/chat"
+      - "OLLAMA_MODEL=mistral"
+      - "PYTHONUNBUFFERED=TRUE"
+    ports:
+      - "8000:8000"
