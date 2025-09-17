@@ -3,7 +3,7 @@ services:
     image: ollama/ollama
 
   web:
-    image: robol/toeplitz-bot
+    image: harbor.cs.dm.unipi.it/toeplitz-bot/toeplitz-bot
     environment:
       - "OLLAMA_NUM_PARALLEL=4"
       - "OLLAMA_URL=http://ollama:11434/api/chat"
