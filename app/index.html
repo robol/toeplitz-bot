@@ -18,7 +18,21 @@
 
     <style>
         body { font-family: Arial, sans-serif; padding-top: 20px; background-color: #f8f9fa; }
-        #chat { max-height: 60vh; overflow-y: auto; border: 1px solid #dee2e6; padding: 10px; background-color: #fff; border-radius: 0.5rem; }
+        #chat {
+            max-height: 60vh;
+            overflow-y: auto;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+        #chat.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
         .message { padding: 8px; margin: 4px; border-radius: 0.5rem; word-wrap: break-word; }
         .user { background-color: #d1e7dd; text-align: right; }
         .assistant { 
@@ -35,7 +49,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-md-8">
-            <h2 class="mb-5 text-center">🔧 HPC Cluster toeplitz.dm.unipi.it</h2>
+            <h1 class="text-center">HPC Cluster</h1>
+            <h3 class="text-center mb-5 text-muted">toeplitz.dm.unipi.it</h3>
 
             <div id="chat" class="mb-3"></div>
 
@@ -70,6 +85,9 @@
         if (!message) return;
 
         const chatDiv = document.getElementById("chat");
+        if (!chatDiv.classList.contains('visible')) {
+            chatDiv.classList.add('visible');
+        }
         chatDiv.innerHTML += `<div class='message user'>${marked.parseInline(message)}</div>`;
         const assistantDiv = document.createElement('div');
         assistantDiv.className = 'message assistant';
@@ -123,7 +141,9 @@
 
     async function resetChat() {
         session_id = (crypto && crypto.randomUUID) ? crypto.randomUUID() : generateUUID();
-        document.getElementById("chat").innerHTML = "";
+        const chatDiv = document.getElementById("chat");
+        chatDiv.innerHTML = "";
+        chatDiv.classList.remove('visible');
     }
 
     function handleKeyPress(event) {

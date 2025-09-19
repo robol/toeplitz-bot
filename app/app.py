@@ -53,6 +53,7 @@ def get_history(session_id: str):
 
 @app.get("/", response_class=HTMLResponse)
 async def home():
+    reload_templates()
     return html_template
 
 
